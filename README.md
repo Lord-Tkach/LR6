@@ -70,5 +70,35 @@
 
 ![](report_branch.png)
 
+## 11. Коммит отчёта
 
+![](first_commit_report.png)
 
+## 12. Лог команд
+
+git init
+git remote add origin ...
+git add .
+git commit -m "Initial commit"
+git checkout -b new-feature
+git add README.md
+git commit -m "Добавлена строка из ветки new-feature"
+git checkout master
+git merge new-feature
+git add README.md
+git commit -m "Merge ветки new-feature в master, конфликт решён"
+git branch -d new-feature
+git add README.md
+git commit -m "Изменение №1"
+git add README.md
+git commit -m "Изменение №2"
+git add README.md
+git commit -m "Изменение №3"
+git revert <hash>
+git add README.md
+git revert --continue
+git push origin master
+
+## 13. История операций в форматированном виде
+
+![](history_operation.png)
