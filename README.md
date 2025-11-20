@@ -1,104 +1,217 @@
-# Отчёт по лабораторной работе №6  
-## Тема: Работа с системой контроля версий Git  
-**Студент:** *Матвеев Н.С.*  
-**Группа:** *4414*  
+
+# Отчёт по лабораторной работе №6
+## Основы работы с системой контроля версий Git
+
+**Студент:** Матвеев Н.С.  
+**Группа:** 4414  
 
 ---
 
-## 1. После установки Git, я настроил имя пользователя и email
+# 1. Цель работы
 
-Использовались команды:
+Освоить систему контроля версий Git: настройку, клонирование, управление ветками, создание и откат коммитов, решение конфликтов, слияние веток, а также оформление отчётов в формате Markdown.
 
-![](git_config.png)
-![](git_config_list.png)
+---
 
-## 2. Клонирование удалённого репозитория
+# 2. Установка и настройка Git
 
-Удалённый репозиторий был клонирован командой:
+После установки Git была выполнена глобальная конфигурация имени пользователя и email:
 
-![](git_clone.png)
+```bash
+git config --global user.name "Матвеев Н.С."
+git config --global user.email "lordtkach@gmail.com"
+```
 
-## 3. Добавление файла через GitHub и получение изменений
+![Настройка Git](images/git_config.png)  
+![Проверка настроек](images/configs.png)
 
-Файл был добавлен в интерфейсе GitHub → затем выполнено получение изменений:
+---
 
-![](create_fail.png)
-![](git_pull.png)
+# 3. Клонирование удалённого репозитория
 
-## 4. История операций
+Клонирование в локальную папку:
 
-Для просмотра истории использована команда:
+```bash
+git clone <https://github.com/Lord-Tkach/LR6>
+```
 
-![](git_log.png)
+![git clone](images/git_clone.png)
 
-## 5. Просмотр последних изменений в файлах
+---
 
-![](git_diff.png)
+# 4. Добавление файла через GitHub и получение изменений
 
-## 6. Слияние ветки и разрешение конфликта
-### 6.1. Добавление строк, попытка слияния
+```bash
+git pull
+```
 
-![](new-feature_add.png)
-![](add_master.png)
-![](conflict_readme.png)
+![Добавление файла](images/github_create.png)  
+![git pull](images/git_pull.png)  
+![git log](images/git_log.png)
 
-### 6.2. Разрешение конфликта
-После корректировки вручную:
+---
 
-![](correct_readme.png)
-![](commit_correct.png)
+# 5. Создание ветки new-feature и внесение изменений
 
-## 7. Удаление побочной ветки
+Создание новой ветки:
 
-![](delete_branch.png)
-
-## 8. Несколько коммитов подряд
-
-Выполнены изменения и создано несколько коммитов:
-
-![](first_change.png)
-![](second_change.png)
-![](third_change.png)
-![](all_change_readme.png)
-
-
-## 9. Откат коммита (revert)
-
-![](revert_vim.png)
-
-## 10. Создание ветки для отчёта
-
-![](report_branch.png)
-
-## 11. Коммит отчёта
-
-![](first_commit_report.png)
-
-## 12. Лог команд
-
-git init
-git remote add origin ...
-git add .
-git commit -m "Initial commit"
+```bash
 git checkout -b new-feature
+```
+
+![Создание ветки](images/new-feature.png)  
+![Различия файлов](images/git_diff.png)
+
+Внесение изменений:
+
+```bash
 git add README.md
 git commit -m "Добавлена строка из ветки new-feature"
+```
+
+![Коммит в new-feature](images/new-feature_commit.png)
+
+---
+
+# 6. Слияние ветки new-feature в master
+
+## 6.1. Выполнение слияния
+
+```bash
 git checkout master
 git merge new-feature
+```
+
+![Коммиты master](images/master_commit.png)
+
+При слиянии возник конфликт:
+
+![Конфликт](images/conflict_readme.png)
+
+---
+
+## 6.2. Разрешение конфликта
+
+```bash
 git add README.md
-git commit -m "Merge ветки new-feature в master, конфликт решён"
+git commit -m "Конфликт при слиянии решён"
+```
+
+![Исправленный файл](images/norm_readme.png)  
+![Фиксация слияния](images/conflict_commit_done.png)
+
+---
+
+# 7. Удаление ветки new-feature
+
+```bash
 git branch -d new-feature
+git push origin --delete new-feature
+```
+
+![Удаление ветки](images/delete_branch.png)
+
+---
+
+# 8. Создание нескольких последовательных коммитов
+
+```bash
 git add README.md
 git commit -m "Изменение №1"
+
 git add README.md
 git commit -m "Изменение №2"
+
 git add README.md
 git commit -m "Изменение №3"
-git revert <hash>
+```
+
+![Изменение 1](images/first_change.png)  
+![Изменение 2](images/seconde_change.png)  
+![Изменение 3](images/third_change.png)  
+![Все изменения](images/all_change_readme.png)
+
+---
+
+# 9. Откат второго коммита
+
+```bash
+git revert <hash второго коммита>
 git add README.md
 git revert --continue
-git push origin master
+```
 
-## 13. История операций в форматированном виде
+![Revert](images/revert.png)
 
-![](history_operation.png)
+---
+
+# 10. Создание ветки report
+
+```bash
+git checkout -b report
+```
+
+![Создание ветки report](images/new_branch_report.png)
+
+---
+
+# 11. Начало оформления отчёта
+
+![Работа над отчётом](images/readme_report.png)  
+![Git статус](images/report_git.png)
+
+---
+
+# 12. Лог команд (без вывода результата)
+
+```
+git init
+git clone
+git checkout -b new-feature
+git add
+git commit
+git checkout master
+git merge new-feature
+git branch -d new-feature
+git revert
+git checkout -b report
+git add README.md images/
+git commit -m "..."
+```
+
+---
+
+# 13. История операций
+
+```bash
+git log --pretty=format:"%h %ad %an %s" --date=short
+```
+
+![История операций](images/history.png)
+
+---
+
+# 14. Финальная фиксация отчёта
+
+```bash
+git add README.md images/
+git commit -m "Финальная версия отчёта"
+```
+
+---
+
+# 15. Отправка отчёта в GitHub
+
+```bash
+git push origin report
+```
+
+![Push](images/master_commit.png)
+
+---
+
+# 16. Выводы
+
+В ходе выполнения лабораторной работы были изучены основные инструменты Git: настройка, создание коммитов, работа с ветками, слияние и решение конфликтов, откат коммитов, ведение истории, использование GitHub и оформление отчёта в Markdown.
+
+```
